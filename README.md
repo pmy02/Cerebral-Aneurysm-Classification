@@ -20,7 +20,7 @@ L/R_atnterior, L/R_posterior의 값으로 할당 <br>
 *anterior과 posterior의 레이블에서 L/R을 하나로 통합했지만, 각각 같은 값을 가지는 것이 아닌 사진의
 L/R에 따라서 같은 레이블이라도 1인 경우와 0인 경우가 따로 나타나게 됨 (추론 시 L/R 레이블을 다시 생성)
 
-<strong>Aneurysm dataset - binary classi fication</strong>
+<strong>Aneurysm dataset - binary classification</strong>
 1) 만들어진 anterior과 posterior을 기준으로 각 행에 대하여 1이 한 개라도 있으면 ‘sum’이라는 label에 1로 할당, 그 외엔 0 <br>
 ![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/48de51e1-e285-4306-8b4e-d7fd1b775a7a)
 
