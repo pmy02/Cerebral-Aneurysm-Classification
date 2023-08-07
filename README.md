@@ -46,15 +46,13 @@ train dataset은 아래와 같이 3가지 타입으로 나뉘어져 있었으며
 ![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/b370932d-080a-4bda-b533-34a77b0ab5ad)
 
 - 글자와 여백이 모두 존재하는 경우 <br>
-픽셀값을 이용하여 여백을 모두 지워주고 난 뒤, 글자가 모두 같은 위치에 있었기 때문에 고정좌표로 두 번째 사진과 같이 초록색 영역을 설정함. 이후 사진에 맞는 배경색을 가지고 오기 위해서 파란색 영역의 픽셀값을 평균내어 초록색 영역을 덮음.
-
+픽셀값을 이용하여 여백을 모두 지워주고 난 뒤, 글자가 모두 같은 위치에 있었기 때문에 고정좌표로 두 번째 사진과 같이 초록색 영역을 설정함. 이후 사진에 맞는 배경색을 가지고 오기 위해서 파란색 영역의 픽셀값을 평균내어 초록색 영역을 덮음. <br>
 ![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/f65d2744-e427-4c09-bfd7-15f96c1a0e34)
 
 
 - 여백이 있는 경우 <br>
 이미지마다 여백의 크기가 달라, 이미지의 center를 기준으로 horizontal line과 vertical line을 슬라이스 한 뒤, 반복문을 돌려 gray color가 <br>
-들어오기 시작하는 좌표를 찾아 이미지를 자름
-
+들어오기 시작하는 좌표를 찾아 이미지를 자름 <br>
 ![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/afbe0efe-5c51-4d68-9e3c-2ef80c8285e6)
 ![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/ffb52686-f7f4-4313-a6b4-50a26ce3769f)
 ![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/12454466-b96f-455b-862a-8d7a4d4c77ed)
