@@ -6,27 +6,22 @@
 각각 anterior(carotid), posterior(vertebral)로 나눔. 총 4개의 Dataset이 존재<br><br>
 <strong>위치 Dataset - multilabel classification</strong>
 1) 사진에서 I,V를 기준으로 전/후방 image path들을 나눔
-2) train.csv에서 L/R, I/V를 기준으로 각각에 맞는 Column들을 할당한 새 Dataframe 생성
-
+2) train.csv에서 L/R, I/V를 기준으로 각각에 맞는 Column들을 할당한 새 Dataframe 생성 <br>
 ![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/3df2bd34-b342-46e9-b98b-9f7c5ab8cd6c)
 
 3) train.csv 크기(len)의 4배, 칼럼은 동일, 새로운 Dataframe anterior, posterior 생성 <br>
-(=> 한 명당 8장의 이미지인 데이터를 전/후방으로 나누었기에 크기가 4배임)
-
+(=> 한 명당 8장의 이미지인 데이터를 전/후방으로 나누었기에 크기가 4배임) <br>
 ![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/de1babb5-f4f6-44d6-8afe-c0ac48b235f0)
 
 4) anterior/posterior에 각 이미지에서 보이는 레이블에 해당하는 값들을 적절한 간격으로
-L/R_atnterior, L/R_posterior의 값으로 할당
-
+L/R_atnterior, L/R_posterior의 값으로 할당 <br>
 ![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/37d3b648-d618-4c0b-b814-614c09a93771)
 ![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/85962cb8-5735-4a3c-8b29-8c51ad4121ed)
 *anterior과 posterior의 레이블에서 L/R을 하나로 통합했지만, 각각 같은 값을 가지는 것이 아닌 사진의
 L/R에 따라서 같은 레이블이라도 1인 경우와 0인 경우가 따로 나타나게 됨 (추론 시 L/R 레이블을 다시 생성)
 
 <strong>Aneurysm dataset - binary classi fication</strong>
-1) 만들어진 anterior과 posterior을 기준으로 각 행에 대하여 1이 한 개라도 있으면 ‘sum’이라는
-label에 1로 할당, 그 외엔 0
-
+1) 만들어진 anterior과 posterior을 기준으로 각 행에 대하여 1이 한 개라도 있으면 ‘sum’이라는 label에 1로 할당, 그 외엔 0 <br>
 ![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/48de51e1-e285-4306-8b4e-d7fd1b775a7a)
 
 학습에 사용되는 데이터는 binary classification을 위한 binary_anterior, binary_posterior과 multilabel classifcation을 위한 anterior, posterior <br>
