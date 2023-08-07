@@ -78,3 +78,56 @@ anterior, posterior 각각 4장에 대하여 평균 2개를 구하고, 그 중 �
 * augmentation : resize, normalize
 
 # etc
+<strong>전처리</strong>
+1. Rule-base Crop을 이용한 학습 이미지 전처리 <br>
+방식 : 동맥류 양성 레이블에 따라 이미지를 해당 위치 기준으로 Rule-base Crop해 학습하고자 함 <br>
+이유 : 고화질의 이미지를 Resize 하는 과정에서 이미지의 화질이 저하되고, 이는 Feature loss로 이어질 것이라 판단 <br>
+결과/분석 : 뇌동맥류가 특정위치에 2개 이상 있더라도 위치정보에는1로 표기되어 있어 정확한 위치를 특정하지 못해 진행하지 못함 <br>
+
+2. 이미지 데이터를 위치/각도/방향에 따라 분할한 뒤 각각 학습 <br>
+방식 : 위치, 각도, 방향에 따라 이미지셋을 분할 한 뒤, 그 이미지에서만 볼 수 있는 레이블만 이용해 따로따로 학습하고자 함 <br>
+(Ex : LI-A 이미지 + LI-A에서만 보이는 레이블만 학습한 모델 등) <br>
+이유 : 위치,각도,방향이 같은 이미지들은 비슷한 형태를 띄고, 판단해야 할 레이블 수도 적어 학습에 유리할 것으로 판단. <br>
+weighted sampler + weightes classes 모두 이용 <br>
+결과/분석 : 데이터 분할 시 양/음성 데이터 간 불균형에 영향을 더 많이 받아 데이터가 적은 클래스의 경우 예측을 제대로 하지 못함. <br>
+weight 기법들로인한 정확도 증가 미미
+
+<strong>Self-Supervised Learning</strong>
+1. Autoencoder - image classification 연결
+방식 : 데이터셋 label에 있어 불균형이 있었는데, 불균형에 영향을 적게 받으며 이미지의 특성을 학습하는 autoencoder의 특성을 이용하였다. <br>
+원리 : 입력을 저차원의 특성 벡터로 인코딩한다. 그 후 인코더에서 생성된 잠재 표현을 사용하여 원본 데이터를 복구하는데, 이렇게 재구성한 이미지가 원본 이미지와 비슷하도록 loss를 줄여나간다. <br>
+그 결과로 재구성된 이미지는 원본이미지와 유사하되, 특성을 학습하게 되는 원리이다. 200번의 epoch를 돌린 후, path에 있던 이미지들을 autoencoder의 pt파일을 통과하도록 하여 학습된 특성을 강조하도록 하였고, <br>
+그 후 binary classification으로 label이 존재하는 supervised learning을 진행하였다. <br>
+supervised learning : 지도학습을 할 때는 처음에는 전체 데이터에 대해 진행하였는데, loss가 떠도
+불균형이 너무 심했기에 의미가 없었고, 두 가지 시도를 하였다.
+label의 개수를 어느정도 맞추기 위해 많은 개수를 가지는 label을 다운샘플링(랜덤으로 고르고 나머지는 버림)
+으로 했지만 데이터의 개수가 너무 작았음, weighted sampling을 하였을 때도 다운샘플링과 결과는
+비슷했다.
+
+2. Contrastive Learning
+- 이미지 데이터셋에서 라벨 불균형을 극복하기 위해 Contrastive Learning을 적용하였다. 이미지는 사전
+훈련된 ResNet50 모델을 통해 특성을 추출하고, 이를 기반으로 같은 클래스의 이미지는 가까운 임베딩
+공간으로, 다른 클래스의 이미지는 멀리 놓음으로써 유사성을 학습한다. 이 과정은 라벨 불균형이 덜 영향을
+미치며, 각 이미지의 특성을 더 정확하게 반영할 수 있다.
+
+<strong>ResNet18</strong>(fc-layer → conv layer) <br>
+일반적인 image classification을 하는 CNN모델들은 last layer가 fully connected layer(fc layer)로 이루어져 있음. <br>
+fc layer는 픽셀의 위치 정보가 사라져 segment에 취약함. fc layer를 convlayer로 바꿔 전처리와 augmentation을 하지 않은 데이터셋을 이용하여, ResNet18 모델을 학습시킴. 결과는 모든 에폭에서 같은 53.68%(f1 score)가 나옴. <br>
+![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/9f60b60f-4f6f-41ac-b021-f32447a86749)
+
+<strong>DenseNet</strong> <br>
+DenseNet은 ResNet의 skip connection을 업그레이드 시킨 버전으로, 주어진 이미지의 feature를 파악하는 것이 가장 중요하다고 생각함. feature extraction 부분에서 성능이 높은 전처리와 augmentation을 하지 않은 데이터셋을 이용하여, DenseNet을 학습시킴.
+![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/8d6a20c2-8b0f-471d-9487-f2175d75b407)
+
+<strong>Grad-Cam</strong> <br>
+여러 ResNet, DenseNet, VGG16 등 여러 CNN 모델을 돌려 보았지만, 이 모델이 이미지의 어떤 부분을
+토대로 이러한 판단을 내렸는지 알 수 없었음. 또한, image augmentation을 하기 위해서는 이미지의 어떠한
+부분이 중요한 지 알아야 했음. 설명 가능한 인공지능(explainable AI)의 기법 중 하나인 Grad-Cam을
+적용하여 이미지 분석을 시도함. 전처리를 통해 글자와 여백을 제거하고 난 이미지를 이용하였고, augmentation은 하지 않았음. <br>
+ResNet18모델이 판단의 기준으로 이용한 부분을 히트맵으로 볼 수 있었으며, 모델의 정확도나 정답을 모르는
+상태에서 Grad-Cam을 적용하였기 때문에 결과가 나왔지만 정확한 분석을 할 수 없었음. <br>
+![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/df6a2bb5-2efd-476e-8871-a1934169d5e7)
+![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/752b5bcb-5a2a-41ef-b2bd-f5249714aa27)
+![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/192eabd5-d7ea-4467-83f0-03e074233926)
+
+
