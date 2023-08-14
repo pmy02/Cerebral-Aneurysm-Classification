@@ -1,7 +1,20 @@
 # Cerebral Aneurysm Classification
 - 프로젝트 소개 : 익명화된 뇌혈관조영술 영상을 기반으로 뇌동맥류 여부, 위치를 진단하는 소프트웨어 개발 
 - 프로젝트 기간 : 2023.06 ~ 2023.07
+
+![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/ffa40320-946b-4aa1-aa31-2f67a6c3b1dc)
+
+
+# 프로젝트 목표
+![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/aaab8df7-92f5-4f89-b43a-7a954261ea40)
+
+
+# Pipeline
+![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/becfd58a-7d74-4cb5-ac28-f3407dc530ad)
+
+
 # Dataset
+![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/e0f9f236-abef-4d41-a3b9-b2c0a522d707)
 크게 Aneurysm 예측을 위한 Dataset과 각 위치들을 예측하기위한 Dataset으로 나누고, 두 Dataset을
 각각 anterior(carotid), posterior(vertebral)로 나눔. 총 4개의 Dataset이 존재<br><br>
 <strong>위치 Dataset - multilabel classification</strong>
@@ -27,13 +40,16 @@ L/R에 따라서 같은 레이블이라도 1인 경우와 0인 경우가 따로 
 학습에 사용되는 데이터는 binary classification을 위한 binary_anterior, binary_posterior과 multilabel classifcation을 위한 anterior, posterior <br>
 => 총 4개
 
+
 # Class 나눈 기준
 한 명당 8장의 사진 중,각각의 사진이 train.csv의 레이블에 해당하는 모든 위치들을 볼 수 없다고 판단하였음. <br>
 조사 결과, 뇌 혈액 순환은 전/후방에 따라 ICA/VA로 나누어 진다는 사실을 알게 되었고, 이에 따라 전/후방에 위치한 혈관으로 레이블을 나눔. <br><br>
 ICA: ICA, AntChor, ACA, ACOM, MCA <br>
 VA : VA, PICA, SCA, BA, PCA, PCOM <br>
 
+
 # Image preprocessing
+![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/c4bdb6e7-8b5f-4c4b-87a4-f54c71012bbd)
 train dataset은 아래와 같이 3가지 타입으로 나뉘어져 있었으며, 여백과 글자가 없는 경우를 제외한 나머지는 이미지 전처리를 해줬음.
 - 여백과 글자가 없는 경우 <br>
 ![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/9dc2357d-b4ca-4176-8778-76d9307fb453)
@@ -52,6 +68,7 @@ train dataset은 아래와 같이 3가지 타입으로 나뉘어져 있었으며
 ![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/ffb52686-f7f4-4313-a6b4-50a26ce3769f)
 ![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/12454466-b96f-455b-862a-8d7a4d4c77ed)
 
+
 # 모델 예측 방식
 1) Binary classification으로 Aneurysm을 예측하고, 임계점을 넘어 가면 그 행(row)는 위치 label을 모두 0으로 대체 - 임계점은 train.csv에 대한 Aneurysm의 예측값의 중앙값
 2) 임계점을 넘는 행은 Multi label classification으로 각 위치에 대한 값을 예측하고, 임계점을 두어 1 또는 0으로 대체 - 임계점은 train.csv에 대한 각 위치 예측값의 90백분위수들 (21개)
@@ -59,7 +76,9 @@ train dataset은 아래와 같이 3가지 타입으로 나뉘어져 있었으며
 * Aneurysm 예측값의 형태는 9016x1 (한 사람 당 8장 이미지에 대한 모든 Aneurysm 예측) 이므로,
 anterior, posterior 각각 4장에 대하여 평균 2개를 구하고, 그 중 가장 큰 값으로 Aneurysm 값 결정
 
+
 # Model
+![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/57600112-1e36-4d0b-9d0c-9761659d3bae)
 1. binary_classification - anterior/posterior 같은 모델 사용
 * MedNet (resnet18) - 여러 medical, gray-scale로 학습된 가중치를 사용
 * https://huggingface.co/TencentMedicalNet/MedicalNet-Resnet18/blob/main/resnet_18.pth
@@ -76,6 +95,10 @@ anterior, posterior 각각 4장에 대하여 평균 2개를 구하고, 그 중 �
 * Loss : Asymmetric Loss
   - https://github.com/Alibaba-MIIL/ASL/blob/main/src/loss_functions/losses.py
 * augmentation : resize, normalize
+
+![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/92a87a45-0556-48c4-8a6b-628cd4ffd98d)
+![image](https://github.com/pmy02/Cerebral-Aneurysm-Classification/assets/62882579/82bc40ae-058c-491d-a4df-7bcd58ecea53)
+
 
 # etc
 <strong>전처리</strong>
