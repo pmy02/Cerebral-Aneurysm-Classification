@@ -151,9 +151,6 @@ Cerebral-Aneurysm-Classification/
 └── README.ko.md            # Korean
 ```
 
-> The code under `src/` and `scripts/` reconstructs the documented method as a
-> runnable skeleton. Verify each module against your original implementation and
-
 
 ## Getting started
 
