@@ -193,17 +193,6 @@ To let others re-run the work, document (placeholders to fill in):
   url    = {https://github.com/pmy02/Cerebral-Aneurysm-Classification}
 }
 ```
-
-## Acknowledgments
-
-- [MedicalNet (TencentMedicalNet)](https://huggingface.co/TencentMedicalNet/MedicalNet-Resnet18) — grayscale medical pretrained weights.
-- [Alibaba-MIIL/ASL](https://github.com/Alibaba-MIIL/ASL) — Asymmetric Loss.
-- [`timm`](https://github.com/huggingface/pytorch-image-models) and `torchvision` — model backbones.
-
-## License
-
-<!-- TODO: no LICENSE file is present. For a public portfolio repo, consider adding one (e.g., MIT) so others know how they may use the code and weights. -->
-
 ## Contact
 
 Minyoung Park — [LinkedIn](https://www.linkedin.com/in/minyoung-park-672754237) · minyo0119@gmail.com
