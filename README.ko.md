@@ -168,16 +168,7 @@ python -m scripts.gradcam  --checkpoint Model/MedNet_ant_binary.pt --image path/
 > 데이터 로딩은 `train.csv` 스키마가 확정되기 전까지 placeholder에 연결돼 있습니다 —
 > `src/data.py`의 TODO를 참고하세요.
 
-## 인용
 
-```bibtex
-@misc{cerebral_aneurysm_classification_2023,
-  title  = {Cerebral Aneurysm Classification},
-  author = {<!-- TODO: 저자명 -->},
-  year   = {2023},
-  url    = {https://github.com/pmy02/Cerebral-Aneurysm-Classification}
-}
-```
 ## 연락처
 
 박민영 (Minyoung Park) — [LinkedIn](https://www.linkedin.com/in/minyoung-park-672754237) · minyo0119@gmail.com
