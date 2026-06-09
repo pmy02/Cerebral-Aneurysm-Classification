@@ -95,7 +95,6 @@
 지표는 [`scripts/evaluate.py`](scripts/evaluate.py)로 계산합니다. 체크포인트를 불러와
 검증 분할에서 추론하고 아래 표를 출력합니다. 이진 과제는 중앙값 임계점에서 F1/AUROC를,
 위치 과제는 클래스별 90백분위수 임계점(본 프로젝트의 판정 규칙)에서 macro-F1을 보고합니다.
-실제 값은 데이터에 직접 돌려 채우세요 — 아래 표는 추정하지 않고 일부러 비워 두었습니다.
 
 ```bash
 python -m scripts.evaluate --config configs/binary_anterior.yaml \
@@ -149,10 +148,6 @@ Cerebral-Aneurysm-Classification/
 └── README.ko.md            # 한국어 (이 파일)
 ```
 
-> `src/`·`scripts/` 코드는 문서화된 방법을 동작 가능한 스켈레톤으로 재구성한 것입니다.
-> 학습 전에 각 모듈을 원래 구현과 대조해 검증하고, `src/data.py`의 데이터 스키마
-> TODO를 채우세요.
-
 ## 시작하기
 
 ```bash
@@ -173,14 +168,6 @@ python -m scripts.gradcam  --checkpoint Model/MedNet_ant_binary.pt --image path/
 > 데이터 로딩은 `train.csv` 스키마가 확정되기 전까지 placeholder에 연결돼 있습니다 —
 > `src/data.py`의 TODO를 참고하세요.
 
-## 재현
-
-다른 사람이 작업을 재현할 수 있도록 다음을 문서화하세요(채울 항목).
-- **환경** — Python·PyTorch 버전, CUDA 버전. <!-- TODO -->
-- **의존성** — `timm`, `torchvision`, `opencv-python` 등 `requirements.txt`에 버전 고정. <!-- TODO -->
-- **데이터** — `train.csv` 스키마와 이미지 디렉터리 구조, (비공개) 데이터 획득 방법. <!-- TODO -->
-- **하드웨어·시간** — GPU 모델과 대략적 학습 시간. <!-- TODO -->
-
 ## 인용
 
 ```bibtex
@@ -191,17 +178,6 @@ python -m scripts.gradcam  --checkpoint Model/MedNet_ant_binary.pt --image path/
   url    = {https://github.com/pmy02/Cerebral-Aneurysm-Classification}
 }
 ```
-
-## 감사의 글
-
-- [MedicalNet (TencentMedicalNet)](https://huggingface.co/TencentMedicalNet/MedicalNet-Resnet18) — 회색조 의료 영상 사전학습 가중치.
-- [Alibaba-MIIL/ASL](https://github.com/Alibaba-MIIL/ASL) — Asymmetric Loss.
-- [`timm`](https://github.com/huggingface/pytorch-image-models), `torchvision` — 모델 백본.
-
-## 라이선스
-
-<!-- TODO: LICENSE 파일이 없습니다. 공개 포트폴리오 저장소라면 코드·가중치 사용 조건을 명확히 하기 위해 라이선스(예: MIT) 추가를 고려하세요. -->
-
 ## 연락처
 
 박민영 (Minyoung Park) — [LinkedIn](https://www.linkedin.com/in/minyoung-park-672754237) · minyo0119@gmail.com
