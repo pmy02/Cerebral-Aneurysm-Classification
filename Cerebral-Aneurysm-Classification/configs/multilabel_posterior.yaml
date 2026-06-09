@@ -1,0 +1,8 @@
+task: multilabel
+model: resnet_multilabel
+num_classes: 6            # VA, PICA, SCA, BA, PCA, PCOM
+label_names: [VA, PICA, SCA, BA, PCA, PCOM]
+threshold_percentile: 90
+epochs: 30
+lr: 1.0e-4
+out_checkpoint: Model/ResNet_pos_multilabel.pt

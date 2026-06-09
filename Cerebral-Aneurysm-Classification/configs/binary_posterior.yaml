@@ -1,0 +1,6 @@
+task: binary
+model: mednet
+medicalnet_weights: Model/resnet_18.pth   # existing MedicalNet base weights
+epochs: 30
+lr: 1.0e-4
+out_checkpoint: Model/MedNet_pos_binary.pt   # matches existing checkpoint name

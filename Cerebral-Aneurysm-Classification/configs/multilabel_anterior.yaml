@@ -1,0 +1,8 @@
+task: multilabel
+model: swin_multilabel
+num_classes: 5            # ICA, AntChor, ACA, ACOM, MCA
+label_names: [ICA, AntChor, ACA, ACOM, MCA]
+threshold_percentile: 90
+epochs: 30
+lr: 1.0e-4
+out_checkpoint: Model/SwinNet_ant_multilabel.pt

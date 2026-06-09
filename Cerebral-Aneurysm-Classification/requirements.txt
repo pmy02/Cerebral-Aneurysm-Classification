@@ -1,0 +1,11 @@
+# TODO: pin exact versions you used (e.g. torch==2.1.0) for reproducibility.
+torch
+torchvision
+timm                # swinv2_cr_tiny_ns_224
+opencv-python       # cv2.bitwise_not, cv2.medianBlur, margin cropping
+numpy
+pandas              # train.csv / dataframe construction
+scikit-learn        # F1, thresholds/percentiles
+Pillow
+matplotlib          # Grad-CAM visualization
+grad-cam            # pytorch-grad-cam (if used for the Grad-CAM heatmaps)
