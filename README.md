@@ -153,7 +153,7 @@ Cerebral-Aneurysm-Classification/
 
 > The code under `src/` and `scripts/` reconstructs the documented method as a
 > runnable skeleton. Verify each module against your original implementation and
-> fill in the data-schema TODOs (marked in `src/data.py`) before training.
+
 
 ## Getting started
 
@@ -172,27 +172,6 @@ python -m scripts.evaluate --config configs/binary_anterior.yaml \
 python -m scripts.gradcam  --checkpoint Model/MedNet_ant_binary.pt --image path/to/frame.png
 ```
 
-> Data loading is wired to placeholders pending your `train.csv` schema — see the
-> TODOs in `src/data.py`.
-
-## Reproducibility
-
-To let others re-run the work, document (placeholders to fill in):
-- **Environment** — Python and PyTorch versions, CUDA version. <!-- TODO -->
-- **Dependencies** — `timm`, `torchvision`, `opencv-python`, etc., pinned in `requirements.txt`. <!-- TODO: pin -->
-- **Data** — expected `train.csv` schema and image directory layout; how the (private) data is obtained. <!-- TODO -->
-- **Hardware & runtime** — GPU model and approximate training time. <!-- TODO -->
-
-## Citation
-
-```bibtex
-@misc{cerebral_aneurysm_classification_2023,
-  title  = {Cerebral Aneurysm Classification},
-  author = {<!-- TODO: author name(s) -->},
-  year   = {2023},
-  url    = {https://github.com/pmy02/Cerebral-Aneurysm-Classification}
-}
-```
 ## Contact
 
 Minyoung Park — [LinkedIn](https://www.linkedin.com/in/minyoung-park-672754237) · minyo0119@gmail.com
